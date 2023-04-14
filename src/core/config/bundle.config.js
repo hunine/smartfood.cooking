@@ -1,11 +1,12 @@
 // @ts-check
 import * as express from 'express';
+import cors from 'cors';
 import methodOverride from 'method-override';
 import swaggerUi from 'swagger-ui-express';
 import { connectDatabase } from 'core/database';
 import { InvalidResolver, InvalidFilter } from '../common/exceptions/system';
 import { logger } from '../../packages/logger';
-import { NODE_ENV } from '../env';
+import { NODE_ENV, CORS_ALLOW } from '../env';
 
 /**
  * @typedef Filter
@@ -18,6 +19,10 @@ export class AppBundle {
     BASE_PATH = '/api';
 
     BASE_PATH_SWAGGER = '/docs';
+
+    CORS_OPTIONS = {
+        origin: CORS_ALLOW,
+    };
 
     static builder() {
         AppBundle.logger.info('App is starting bundling');
@@ -77,6 +82,7 @@ export class AppBundle {
         /**
          * Setup method override method to use PUT, PATCH,...
          */
+        this.app.use(cors(this.CORS_OPTIONS));
         this.app.use(methodOverride('X-HTTP-Method-Override'));
         this.app.use(
             methodOverride(req => {

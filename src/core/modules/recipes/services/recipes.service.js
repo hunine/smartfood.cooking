@@ -1,11 +1,12 @@
 import { Optional } from 'core/utils';
 import { NotFoundException } from 'packages/httpException';
+import { DataPersistenceService } from 'packages/restBuilder/core/dataHandler/data.persistence.service';
 
 const { RecipeRepository } = require('../repository/recipe.repository');
 
-class Service {
+class Service extends DataPersistenceService {
     constructor() {
-        this.repository = RecipeRepository;
+        super(RecipeRepository);
     }
 
     async findById(id) {

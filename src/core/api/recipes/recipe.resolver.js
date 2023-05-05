@@ -1,5 +1,5 @@
 import { Module } from 'packages/handler/Module';
-import { RecordId } from 'core/common/swagger';
+import { RecordId, DefaultQueryCriteriaDocument } from 'core/common/swagger';
 import { RecipeController } from './recipe.controller';
 
 export const RecipeResolver = Module.builder()
@@ -10,9 +10,15 @@ export const RecipeResolver = Module.builder()
     })
     .register([
         {
+            route: '/',
+            method: 'get',
+            params: DefaultQueryCriteriaDocument,
+            controller: RecipeController.findAll,
+        },
+        {
             route: '/:id',
-            controller: RecipeController.findById,
             method: 'get',
             params: [RecordId],
+            controller: RecipeController.findById,
         },
     ]);

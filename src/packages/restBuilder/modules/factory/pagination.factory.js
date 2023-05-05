@@ -6,13 +6,13 @@ export class PaginationFactory {
 
     static DEFAULT_RADIX = 10;
 
-    static MAX_PAGE = null;
+    static MAX_PAGE = 1000;
 
-    static MAX_SIZE = null;
+    static MAX_SIZE = 50;
 
-    static DEFAULT_PAGE = null;
+    static DEFAULT_PAGE = 1;
 
-    static DEFAULT_SIZE = null;
+    static DEFAULT_SIZE = 50;
 
     constructor() {
         logger.info(`[${PaginationFactory.name}] is building`);

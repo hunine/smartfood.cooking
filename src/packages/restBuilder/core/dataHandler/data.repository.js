@@ -1,6 +1,9 @@
 import connection from 'core/database';
 import { logger } from 'core/utils';
 import { camelCase, upperFirst } from 'lodash';
+import { QueryBuilder } from 'packages/restBuilder/core/queryBuilder/queryBuilder';
+import { BUILDER_TYPE } from 'packages/restBuilder/enum/buildType.enum';
+import { parallel } from 'packages/taskExecution';
 
 export class DataRepository {
     #table;
@@ -15,6 +18,59 @@ export class DataRepository {
 
     query() {
         return this.#connection(this.#table).clone();
+    }
+
+    /**
+     * @param {import('../../modules/query/pagination.query').PaginationQuery} pagination 
+     * @param {import('../../modules/query/filter.query').FilterQuery} filter 
+     * @param {import('../../modules/query/sort.query').SortQuery} sort 
+     * @param {import('../../modules/query/search.query').SearchQuery[]} search 
+     * @param {import('mongoose').PopulateOptions} associates
+     * @returns {import('../queryBuilder/queryBuilder').QueryBuilder}
+     * @param {import('../../enum/buildType.enum').BUILDER_TYPE} querySelector
+     */
+    getTemplateQuery(pagination, filter, sort, search, main, associates,
+        notDeleted, querySelector = BUILDER_TYPE.SELECT) {
+        return QueryBuilder
+            .builder(this.query())[querySelector]()
+            .addFilter(filter)
+            .addPagination(pagination)
+            .addSearch(search)
+            .addSort(sort)
+            .setMain(main)
+            .setAssociates(associates)
+            .setNotDeleted(notDeleted);
+    }
+
+    getAndCount(pagination, filter, sort, search, main, associates, notDeleted) {
+        const baseQuery = this.getTemplateQuery(pagination, filter, sort, search, main, associates, notDeleted);
+        return parallel([
+            baseQuery,
+            QueryBuilder.builder(this.query(), baseQuery)
+                .countRecords()
+                .clearPagination()
+        ], task => task.run());
+    }
+
+    get(pagination, filter, sort, search, main, associates, notDeleted) {
+        return this.getTemplateQuery(pagination, filter, sort, search, main, associates, notDeleted).run();
+    }
+
+    getWithFilter(filter, main, associates, notDeleted) {
+        return this.getTemplateQuery(null, filter, null, null, main, associates, notDeleted).run();
+    }
+
+    getWithSort(sort, main, associates, notDeleted) {
+        return this.getTemplateQuery(null, null, sort, null, main, associates, notDeleted).run();
+    }
+
+    /**
+     *
+     * @param {import('../../modules/query/search.query').SearchQuery} searchQuery 
+     * @param {import('mongoose').PopulateOptions[]} associates
+     */
+    search(searchQuery, main, associates) {
+        return this.getTemplateQuery(null, null, null, searchQuery, main, associates).run();
     }
 
     /**

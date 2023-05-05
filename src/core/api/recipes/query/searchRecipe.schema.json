@@ -1,0 +1,54 @@
+{
+    "main": [
+        "recipes.id",
+        "recipes.name",
+        "recipes.level",
+        "recipes.description",
+        {
+            "createdAt": "recipes.created_at"
+        },
+        {
+            "updatedAt": "recipes.updated_at"
+        },
+        {
+            "deletedAt": "recipes.deleted_at"
+        }
+    ],
+    "associates": [],
+    "notDeleted": [
+        "recipes"
+    ],
+    "locks": {
+        "filters": [
+            {
+                "name": "recipes.name"
+            },
+            {
+                "level": "recipes.level"
+            },
+            {
+                "createdAt": "recipes.created_at"
+            },
+            {
+                "updatedAt": "recipes.updated_at"
+            }
+        ],
+        "sorts": [
+            {
+                "id": "recipes.id"
+            },
+            {
+                "name": "recipes.name"
+            },
+            {
+                "createdAt": "recipes.created_at"
+            },
+            {
+                "updatedAt": "recipes.updated_at"
+            }
+        ]
+    },
+    "searchCriteria": [
+        "name"
+    ]
+}

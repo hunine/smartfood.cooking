@@ -4,7 +4,7 @@ class Repository extends DataRepository {
     findById(id) {
         return this.query()
             .whereNull('recipes.deleted_at')
-            .where('recipes.id', '=', id)
+            .whereRaw(`recipes.id::text = '${id}'`)
             .select()
             .first();
     }

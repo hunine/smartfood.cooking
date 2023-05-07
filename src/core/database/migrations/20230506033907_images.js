@@ -3,16 +3,16 @@
  * @returns { Promise<void> }
  */
 
-const tableName = 'recipes';
+const tableName = 'images';
 
 exports.up = async knex => {
     await knex.schema
         .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
         .createTable(tableName, table => {
             table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
-            table.string('name');
-            table.string('level');
-            table.string('description');
+            table.string('url');
+            table.integer('width').unsigned();
+            table.integer('height').unsigned();
             table.dateTime('deleted_at').defaultTo(null);
             table.timestamps(false, true);
         });

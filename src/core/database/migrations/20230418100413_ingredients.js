@@ -6,9 +6,10 @@
 const tableName = 'ingredients';
 
 exports.up = async knex => {
-    await knex.schema.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
+    await knex.schema
+        .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
         .createTable(tableName, table => {
-            table.uuid('id', { primaryKey: true }).defaultTo(knex.raw('uuid_generate_v4()'));
+            table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
             table.string('name');
             table.dateTime('deleted_at').defaultTo(null);
             table.timestamps(false, true);

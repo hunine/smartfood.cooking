@@ -3,6 +3,8 @@
         "recipes.id",
         "recipes.name",
         "recipes.level",
+        "levels.name as level",
+        "images.url as image_url",
         "recipes.description",
         {
             "createdAt": "recipes.created_at"
@@ -14,7 +16,23 @@
             "deletedAt": "recipes.deleted_at"
         }
     ],
-    "associates": [],
+    "associates": [
+        [
+            "recipes_images",
+            "recipes_images.recipe_id",
+            "recipes.id"
+        ],
+        [
+            "images",
+            "images.id",
+            "recipes_images.image_id"
+        ],
+        [
+            "levels",
+            "levels.id",
+            "recipes.level_id"
+        ]
+    ],
     "notDeleted": [
         "recipes"
     ],

@@ -1,0 +1,49 @@
+{
+    "main": [
+        "levels.id",
+        "levels.name",
+        {
+            "createdAt": "levels.created_at"
+        },
+        {
+            "updatedAt": "levels.updated_at"
+        },
+        {
+            "deletedAt": "levels.deleted_at"
+        }
+    ],
+    "associates": [],
+    "notDeleted": [
+        "levels"
+    ],
+    "locks": {
+        "filters": [
+            {
+                "name": "levels.name"
+            },
+            {
+                "createdAt": "levels.created_at"
+            },
+            {
+                "updatedAt": "levels.updated_at"
+            }
+        ],
+        "sorts": [
+            {
+                "id": "levels.id"
+            },
+            {
+                "name": "levels.name"
+            },
+            {
+                "createdAt": "levels.created_at"
+            },
+            {
+                "updatedAt": "levels.updated_at"
+            }
+        ]
+    },
+    "searchCriteria": [
+        "name"
+    ]
+}

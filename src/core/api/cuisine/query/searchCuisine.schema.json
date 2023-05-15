@@ -1,0 +1,49 @@
+{
+    "main": [
+        "cuisine.id",
+        "cuisine.name",
+        {
+            "createdAt": "cuisine.created_at"
+        },
+        {
+            "updatedAt": "cuisine.updated_at"
+        },
+        {
+            "deletedAt": "cuisine.deleted_at"
+        }
+    ],
+    "associates": [],
+    "notDeleted": [
+        "cuisine"
+    ],
+    "locks": {
+        "filters": [
+            {
+                "name": "cuisine.name"
+            },
+            {
+                "createdAt": "cuisine.created_at"
+            },
+            {
+                "updatedAt": "cuisine.updated_at"
+            }
+        ],
+        "sorts": [
+            {
+                "id": "cuisine.id"
+            },
+            {
+                "name": "cuisine.name"
+            },
+            {
+                "createdAt": "cuisine.created_at"
+            },
+            {
+                "updatedAt": "cuisine.updated_at"
+            }
+        ]
+    },
+    "searchCriteria": [
+        "name"
+    ]
+}

@@ -11,7 +11,11 @@ exports.up = async knex => {
         .createTable(tableName, table => {
             table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
             table.string('name');
-            table.string('level');
+            table
+                .uuid('level_id')
+                .references('id')
+                .inTable('levels')
+                .notNullable();
             table.string('description');
             table.dateTime('deleted_at').defaultTo(null);
             table.timestamps(false, true);

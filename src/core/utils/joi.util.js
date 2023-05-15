@@ -1,6 +1,7 @@
 import Joi from 'joi';
 
 const MONGOOSE_ID_OBJECT_FORMAT = /^[0-9a-fA-F]{24}$/;
+const UUID_POSTGRES_FORMAT = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
 
 const DATE_YYYY_MM_DD_FORMAT = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -10,6 +11,10 @@ const PWD_FORMAT = /^[a-zA-Z0-9\d@$!%*?&]{6,30}$/;
 export class JoiUtils {
     static objectId() {
         return Joi.string().regex(MONGOOSE_ID_OBJECT_FORMAT);
+    }
+
+    static uuid() {
+        return Joi.string().regex(UUID_POSTGRES_FORMAT);
     }
 
     static optionalString() {
@@ -50,6 +55,12 @@ export class JoiUtils {
     static ObjectIds() {
         return Joi.array().items(
             this.objectId()
+        );
+    }
+
+    static uuids() {
+        return Joi.array().items(
+            this.uuid()
         );
     }
 }

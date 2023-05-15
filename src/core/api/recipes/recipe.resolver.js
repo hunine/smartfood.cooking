@@ -1,5 +1,6 @@
 import { Module } from 'packages/handler/Module';
 import { RecordId, DefaultQueryCriteriaDocument } from 'core/common/swagger';
+import { GetRecipesByIngredientsInterceptor } from 'core/modules/recipes/interceptor/get-recipes-by-ingredients.interceptor';
 import { RecipeController } from './recipe.controller';
 
 export const RecipeResolver = Module.builder()
@@ -14,11 +15,21 @@ export const RecipeResolver = Module.builder()
             method: 'get',
             params: DefaultQueryCriteriaDocument,
             controller: RecipeController.findAll,
+            preAuthorization: false,
         },
         {
             route: '/:id',
             method: 'get',
             params: [RecordId],
             controller: RecipeController.findById,
+            preAuthorization: false,
+        },
+        {
+            route: '/ingredients',
+            method: 'post',
+            interceptors: [GetRecipesByIngredientsInterceptor],
+            body: 'GetRecipesByIngredientsDto',
+            controller: RecipeController.findByIngredientIds,
+            preAuthorization: false,
         },
     ]);

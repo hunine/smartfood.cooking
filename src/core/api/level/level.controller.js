@@ -1,4 +1,4 @@
-import { LevelService } from 'core/modules/levels/services/level.service';
+import { LevelService } from 'core/modules/level/services/level.service';
 import { ValidHttpResponse } from 'packages/handler/response/validHttp.response';
 import { RequestTransformer } from 'packages/restBuilder/core/requestTransformer';
 import searchLevelSchema from './query/searchLevel.schema.json';

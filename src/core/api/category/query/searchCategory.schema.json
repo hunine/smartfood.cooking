@@ -1,0 +1,49 @@
+{
+    "main": [
+        "categories.id",
+        "categories.name",
+        {
+            "createdAt": "categories.created_at"
+        },
+        {
+            "updatedAt": "categories.updated_at"
+        },
+        {
+            "deletedAt": "categories.deleted_at"
+        }
+    ],
+    "associates": [],
+    "notDeleted": [
+        "categories"
+    ],
+    "locks": {
+        "filters": [
+            {
+                "name": "categories.name"
+            },
+            {
+                "createdAt": "categories.created_at"
+            },
+            {
+                "updatedAt": "categories.updated_at"
+            }
+        ],
+        "sorts": [
+            {
+                "id": "categories.id"
+            },
+            {
+                "name": "categories.name"
+            },
+            {
+                "createdAt": "categories.created_at"
+            },
+            {
+                "updatedAt": "categories.updated_at"
+            }
+        ]
+    },
+    "searchCriteria": [
+        "name"
+    ]
+}

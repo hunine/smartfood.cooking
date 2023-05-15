@@ -1,7 +1,7 @@
-import { RecipeService } from 'core/modules/recipes/services/recipes.service';
+import { RecipeService } from 'core/modules/recipe/services/recipe.service';
 import { ValidHttpResponse } from 'packages/handler/response/validHttp.response';
 import { RequestTransformer } from 'packages/restBuilder/core/requestTransformer';
-import { GetRecipesByIngredientsDto } from 'core/modules/recipes/dto/get-recipes-by-ingredients';
+import { GetRecipesByIngredientsDto } from 'core/modules/recipe/dto/get-recipes-by-ingredients';
 import searchRecipeSchema from './query/searchRecipe.schema.json';
 
 class Controller {

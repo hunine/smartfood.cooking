@@ -1,6 +1,6 @@
 import { Module } from 'packages/handler/Module';
 import { RecordId, DefaultQueryCriteriaDocument } from 'core/common/swagger';
-import { GetRecipesByIngredientsInterceptor } from 'core/modules/recipes/interceptor/get-recipes-by-ingredients.interceptor';
+import { GetRecipesByIngredientsInterceptor } from 'core/modules/recipe/interceptor/get-recipes-by-ingredients.interceptor';
 import { RecipeController } from './recipe.controller';
 
 export const RecipeResolver = Module.builder()

@@ -1,0 +1,49 @@
+{
+    "main": [
+        "ingredients.id",
+        "ingredients.name",
+        {
+            "createdAt": "ingredients.created_at"
+        },
+        {
+            "updatedAt": "ingredients.updated_at"
+        },
+        {
+            "deletedAt": "ingredients.deleted_at"
+        }
+    ],
+    "associates": [],
+    "notDeleted": [
+        "ingredients"
+    ],
+    "locks": {
+        "filters": [
+            {
+                "name": "ingredients.name"
+            },
+            {
+                "createdAt": "ingredients.created_at"
+            },
+            {
+                "updatedAt": "ingredients.updated_at"
+            }
+        ],
+        "sorts": [
+            {
+                "id": "ingredients.id"
+            },
+            {
+                "name": "ingredients.name"
+            },
+            {
+                "createdAt": "ingredients.created_at"
+            },
+            {
+                "updatedAt": "ingredients.updated_at"
+            }
+        ]
+    },
+    "searchCriteria": [
+        "name"
+    ]
+}

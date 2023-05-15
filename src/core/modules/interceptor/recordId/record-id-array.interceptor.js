@@ -6,8 +6,8 @@ export const RecordIdArrayInterceptor = DefaultValidatorInterceptor(
     Joi.object({
         ids: Joi.array()
             .items(
-                JoiUtils.positiveNumber().message(
-                    'Array contain unexpected id format! It should be a positive number and greater than 0',
+                JoiUtils.uuid().message(
+                    'Array contain unexpected id format! It should be uuid format',
                 ),
             )
             .min(1)

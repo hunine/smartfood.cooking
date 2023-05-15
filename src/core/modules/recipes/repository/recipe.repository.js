@@ -20,6 +20,34 @@ class Repository extends DataRepository {
             )
             .first();
     }
+
+    findByIngredientIds(ingredientsId) {
+        return this.query()
+            .innerJoin(
+                'recipes_ingredients',
+                'recipes.id',
+                'recipes_ingredients.recipe_id',
+            )
+            .innerJoin(
+                'ingredients',
+                'recipes_ingredients.ingredient_id',
+                'ingredients.id',
+            )
+            .leftJoin('levels', 'recipes.level_id', 'levels.id')
+            .whereNull('recipes.deleted_at')
+            .whereIn('ingredients.id', ingredientsId)
+            .select(
+                'recipes.id',
+                'recipes.name',
+                'levels.name as level',
+                'recipes.description',
+                'recipes.deleted_at',
+                'recipes.created_at',
+                'recipes.updated_at',
+            )
+            .groupByRaw('recipes.id, levels.id')
+            .orderByRaw('count(ingredients.id) desc');
+    }
 }
 
 export const RecipeRepository = new Repository('recipes');

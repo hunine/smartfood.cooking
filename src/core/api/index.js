@@ -5,7 +5,15 @@ import { HandlerResolver } from '../../packages/handler/HandlerResolver';
 import { AuthResolver } from './auth/auth.resolver';
 import { RecipeResolver } from './recipes';
 import { IngredientResolver } from './ingredients';
+import { LevelResolver } from './levels';
 
 export const ModuleResolver = HandlerResolver.builder()
     .addSwaggerBuilder(ApiDocument)
-    .addModule([AuthResolver, UserResolver, MediaResolver, RecipeResolver, IngredientResolver]);
+    .addModule([
+        AuthResolver,
+        UserResolver,
+        MediaResolver,
+        RecipeResolver,
+        IngredientResolver,
+        LevelResolver,
+    ]);

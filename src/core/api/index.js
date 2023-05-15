@@ -6,6 +6,7 @@ import { AuthResolver } from './auth/auth.resolver';
 import { RecipeResolver } from './recipes';
 import { IngredientResolver } from './ingredients';
 import { LevelResolver } from './levels';
+import { CuisineResolver } from './cuisine';
 
 export const ModuleResolver = HandlerResolver.builder()
     .addSwaggerBuilder(ApiDocument)
@@ -16,4 +17,5 @@ export const ModuleResolver = HandlerResolver.builder()
         RecipeResolver,
         IngredientResolver,
         LevelResolver,
+        CuisineResolver,
     ]);

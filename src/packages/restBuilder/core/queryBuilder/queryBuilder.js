@@ -35,19 +35,19 @@ export class QueryBuilder {
     }
 
     static builder(queryBuilder, baseQueryBuilder) {
-        const newIntance = new QueryBuilder();
-        newIntance.#queryBuilder = queryBuilder;
+        const newInstance = new QueryBuilder();
+        newInstance.#queryBuilder = queryBuilder;
         if (baseQueryBuilder) {
             const queryDocument = baseQueryBuilder.getQueryDocument();
-            newIntance.#filterDocuments = queryDocument.filterDocument;
-            newIntance.#sortDocument = queryDocument.sortDocument;
-            newIntance.#searchDocument = queryDocument.searchDocument;
-            newIntance.#limit = queryDocument.limit;
-            newIntance.#offset = queryDocument.offset;
+            newInstance.#filterDocuments = queryDocument.filterDocument;
+            newInstance.#sortDocument = queryDocument.sortDocument;
+            newInstance.#searchDocument = queryDocument.searchDocument;
+            newInstance.#limit = queryDocument.limit;
+            newInstance.#offset = queryDocument.offset;
         }
         return {
-            select: newIntance.#init(BUILDER_TYPE.SELECT),
-            countRecords: newIntance.#init(BUILDER_TYPE.COUNT),
+            select: newInstance.#init(BUILDER_TYPE.SELECT),
+            countRecords: newInstance.#init(BUILDER_TYPE.COUNT),
         };
     }
 
@@ -228,24 +228,39 @@ export class QueryBuilder {
             });
         }
 
+        // if (this.#buildType === BUILDER_TYPE.COUNT) {
+        //     this.#queryBuilder[this.#buildType]('*').first();
+        // } else {
+        //     this.#queryBuilder[this.#buildType](...this.#main);
+        //     if (this.#searchDocument) {
+        //         const searchValue = this.#searchDocument.value;
+        //         this.#searchDocument?.queries.forEach(searchQuery => {
+        //             this.#queryBuilder.where(function () {
+        //                 this.orWhereRaw(searchQuery, searchValue);
+        //             });
+        //         });
+        //     }
+
+        //     this.#queryBuilder.orderBy(this.#sortDocument);
+        //     if (this.#buildType === BUILDER_TYPE.COUNT) {
+        //         return this.#queryBuilder;
+        //     }
+        // }
+
         if (this.#buildType === BUILDER_TYPE.COUNT) {
             this.#queryBuilder[this.#buildType]('*').first();
-        } else {
-            this.#queryBuilder[this.#buildType](...this.#main);
-            if (this.#searchDocument) {
-                const searchValue = this.#searchDocument.value;
-                this.#searchDocument?.queries.forEach(searchQuery => {
-                    this.#queryBuilder.where(function () {
-                        this.orWhereRaw(searchQuery, searchValue);
-                    });
-                });
-            }
-
-            this.#queryBuilder.orderBy(this.#sortDocument);
-            if (this.#buildType === BUILDER_TYPE.COUNT) {
-                return this.#queryBuilder;
-            }
         }
+
+        if (this.#searchDocument) {
+            const searchValue = this.#searchDocument.value;
+            this.#searchDocument?.queries.forEach(searchQuery => {
+                this.#queryBuilder.where(function () {
+                    this.orWhereRaw(searchQuery, searchValue);
+                });
+            });
+        }
+
+        this.#queryBuilder.orderBy(this.#sortDocument);
 
         this.#notDeleted.forEach(table => {
             this.#queryBuilder.whereNull(`${table}.deleted_at`);

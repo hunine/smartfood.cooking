@@ -26,7 +26,7 @@ export const RecipeResolver = Module.builder()
         },
         {
             route: '/ingredients',
-            method: 'post',
+            method: 'get',
             interceptors: [GetRecipesByIngredientsInterceptor],
             body: 'GetRecipesByIngredientsDto',
             controller: RecipeController.findByIngredientIds,
